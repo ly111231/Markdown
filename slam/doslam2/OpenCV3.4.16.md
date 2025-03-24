@@ -22,6 +22,14 @@ cd build
 cmake  -D CMAKE_INSTALL_PREFIX=/usr/local/opencv_aarch64 -D WITH_QT=ON -D WITH_GTK=ON -D WITH_OPENGL=ON  -DCMAKE_CXX_FLAGS="-w" .. #-DCMAKE_CXX_FLAGS="-w" 忽略警告，不然g++版本高语法严格会报错
 make -j$(npro) # 在build目录中构建opencv动态库
 sudo make install # 将build目录下的动态库拷贝到指定路径/usr/local/opencv_aarch64
+# 忽略以下
+cmake -D CMAKE_BUILD_TYPE=Release \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.4.16/modules \
+      -D BUILD_TESTS=OFF \
+      -D INSTALL_PYTHON_EXAMPLES=OFF \
+      -D WITH_QT=ON -D WITH_GTK=ON -D WITH_OPENGL=ON \
+      -D BUILD_EXAMPLES=OFF ..
 ```
 
 
@@ -111,3 +119,4 @@ sudo scp -r ubuntu@192.168.137.222:/tmp/usr_lib.tar.gz /tmp/usr_lib.tar.gz
 
 ![image-20241129093519727](https://lypicbed.oss-cn-beijing.aliyuncs.com/Markdown/202411290935815.png)
 
+cmake -D CMAKE_TOOLCHAIN_FILE=../toolchain.cmake -DCROSS_COMPILE=ON ..
